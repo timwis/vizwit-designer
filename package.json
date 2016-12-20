@@ -1,0 +1,20 @@
+{
+  "name": "vizwit-designer",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "author": "timwis <tim@timwis.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "budo . --pushstate --live --base / --css https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
+  },
+  "dependencies": {
+    "choo": "^4.0.1",
+    "get-form-data": "^1.2.5",
+    "run-parallel": "^1.1.6",
+    "xhr": "^2.3.2"
+  },
+  "devDependencies": {
+    "budo": "^9.3.0",
+    "choo-log": "^3.0.0"
+  }
+}
