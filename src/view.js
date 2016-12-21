@@ -4,6 +4,7 @@ const DomainDataset = require('./components/domain-dataset')
 const Fields = require('./components/fields')
 const ChartTypes = require('./components/chart-types')
 const ChartSettings = require('./components/chart-settings')
+const Export = require('./components/export')
 
 module.exports = (state, prev, send) => {
   const fieldType = state.field ? state.fields[state.field].type : ''
@@ -15,7 +16,7 @@ module.exports = (state, prev, send) => {
       ${state.fields ? Fields(state.fields, selectFieldCb) : ''}
       ${fieldType ? ChartTypes(fieldType, state.chartType, selectChartTypeCb) : ''}
       ${state.chartType ? ChartSettings(state.chartType, chartSettingsCb) : ''}
-      ${state.chartType ? Export() : ''}
+      ${state.chartType ? Export(state) : ''}
     </div>
   `
   function submitDomainDatasetCb (formData) {
@@ -29,25 +30,5 @@ module.exports = (state, prev, send) => {
   }
   function chartSettingsCb (settings) {
     send('setChartSettings', settings)
-  }
-  function Export () {
-    const config = {
-      provider: 'cartodb',
-      domain: state.domain,
-      dataset: state.dataset,
-      chartType: state.chartType,
-      groupBy: state.field
-    }
-    if (state.fields[state.field].type === 'date') {
-      config.groupBy = `date_trunc('month', ${state.field})`
-      config.triggerField = state.field
-    }
-    Object.assign(config, state.settings)
-
-    return html`
-      <pre>
-${JSON.stringify(config, null, 2)}
-      </pre>
-    `
   }
 }
