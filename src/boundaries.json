@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Wards",
+    "url": "https://timwis.carto.com/api/v2/sql?q=select+*+from+public.police_district_boundaries&format=geojson",
+    "label": "dist_num",
+    "id": "dist_num"
+  }
+]

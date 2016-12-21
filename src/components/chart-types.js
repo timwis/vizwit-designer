@@ -1,33 +1,14 @@
 const html = require('choo/html')
 
-const chartTypes = {
-  bar: {
-    title: 'Bar chart',
-    description: 'Columns that represent categorical data',
-    validFieldTypes: ['string']
-  },
-  pie: {
-    title: 'Pie chart',
-    description: 'Slices that represent categorical data',
-    validFieldTypes: ['string']
-  },
-  datetime: {
-    title: 'Date/time chart',
-    description: 'An area chart representing temporal categories',
-    validFieldTypes: ['date']
-  },
-  choropleth: {
-    title: 'Choropleth map',
-    description: 'A map with polygon colors scaled based on a value',
-    validFieldTypes: ['geometry']
-  }
-}
+const chartTypes = require('../config')
 
 module.exports = (fieldType, selectedType, cb) => {
   const validChartTypes = getValidChartTypes(fieldType)
   return html`
     <div class="card-columns">
-      ${validChartTypes.map(ChartCard)}
+      ${validChartTypes.length
+        ? validChartTypes.map(ChartCard)
+        : 'No chart types available for this field'}
     </div>
   `
   function ChartCard (chartType) {

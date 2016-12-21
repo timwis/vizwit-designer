@@ -7,13 +7,15 @@ module.exports = {
     field: '', // which field is selected
     domain: '',
     dataset: '',
-    chartType: ''
+    chartType: '',
+    settings: {}
   },
   reducers: {
     setDomainDataset: (state, formData) => formData,
     receiveFields: (state, fields) => ({ fields }),
-    setField: (state, field) => ({ field }),
-    setChartType: (state, chartType) => ({ chartType })
+    setField: (state, field) => ({ field, chartType: '', settings: {} }),
+    setChartType: (state, chartType) => ({ chartType, settings: {} }),
+    setChartSettings: (state, settings) => ({ settings })
   },
   effects: {
     submitDomainDataset: (state, formData, send, done) => {

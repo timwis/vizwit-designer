@@ -12,7 +12,7 @@ module.exports = (fieldsObj, cb) => {
         class="form-control"
         onchange=${onChange}>
         ${fields.length
-          ? html`<option value="">Select field...</option>`
+          ? html`<option value="" selected>Select field...</option>`
           : ''}
         ${fields.map(Field)}
       </select>
