@@ -1,11 +1,18 @@
 const html = require('choo/html')
+const css = require('sheetify')
 
 const chartTypes = require('../config')
+
+const prefix = css`
+  :host .card {
+    cursor: pointer;
+  }
+`
 
 module.exports = (fieldType, selectedType, cb) => {
   const validChartTypes = getValidChartTypes(fieldType)
   return html`
-    <div class="card-columns">
+    <div class="${prefix} card-columns">
       ${validChartTypes.length
         ? validChartTypes.map(ChartCard)
         : 'No chart types available for this field'}

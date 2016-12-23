@@ -5,12 +5,15 @@
   "author": "timwis <tim@timwis.com>",
   "license": "MIT",
   "scripts": {
-    "start": "budo . --pushstate --live --base / --css https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
+    "start": "budo . --pushstate --live --base / -- -t sheetify/transform"
   },
   "dependencies": {
+    "bootstrap": "^4.0.0-alpha.5",
     "choo": "^4.0.1",
     "get-form-data": "^1.2.5",
+    "leaflet": "^1.0.2",
     "run-parallel": "^1.1.6",
+    "sheetify": "^6.0.1",
     "xhr": "^2.3.2"
   },
   "devDependencies": {

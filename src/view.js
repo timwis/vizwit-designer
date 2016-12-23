@@ -1,13 +1,20 @@
 const html = require('choo/html')
+const css = require('sheetify')
 
 const DomainDataset = require('./components/domain-dataset')
 const Fields = require('./components/fields')
 const ChartTypes = require('./components/chart-types')
 const ChartSettings = require('./components/chart-settings')
 const Export = require('./components/export')
+const Preview = require('./components/preview')
+
+css('bootstrap')
+css('leaflet')
+css('vizwit/src/styles/main.css')
 
 module.exports = (state, prev, send) => {
   const fieldType = state.field ? state.fields[state.field].type : ''
+  const config = constructConfig(state)
 
   return html`
     <div class="container">
@@ -16,7 +23,8 @@ module.exports = (state, prev, send) => {
       ${state.fields ? Fields(state.fields, selectFieldCb) : ''}
       ${fieldType ? ChartTypes(fieldType, state.chartType, selectChartTypeCb) : ''}
       ${state.chartType ? ChartSettings(state.chartType, chartSettingsCb) : ''}
-      ${state.chartType ? Export(state) : ''}
+      ${state.chartType ? Preview(config) : ''}
+      ${state.chartType ? Export(config) : ''}
     </div>
   `
   function submitDomainDatasetCb (formData) {
@@ -30,5 +38,20 @@ module.exports = (state, prev, send) => {
   }
   function chartSettingsCb (settings) {
     send('setChartSettings', settings)
+  }
+  function constructConfig (state) {
+    const config = {
+      provider: 'cartodb',
+      domain: state.domain,
+      dataset: state.dataset,
+      chartType: state.chartType,
+      groupBy: state.field
+    }
+    if (fieldType === 'date') {
+      config.groupBy = `date_trunc('month', ${state.field})`
+      config.triggerField = state.field
+    }
+    Object.assign(config, state.settings)
+    return config
   }
 }

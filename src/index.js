@@ -9,9 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.model(require('./model'))
 
 app.router([
-  ['/', require('./view')],
-  ['/:domain/:dataset', require('./views/dataset')],
-  ['/:domain/:dataset/:field', require('./views/field')]
+  ['/', require('./view')]
 ])
 
 const tree = app.start()

@@ -27,7 +27,7 @@ module.exports = (chartType, cb) => {
           const value = e.target.value
           const boundary = boundaries.find((boundary) => boundary.name === value)
           const payload = {
-            boundariesURL: boundary.url,
+            boundaries: boundary.url,
             boundariesLabel: boundary.label,
             boundariesId: boundary.id
           }
