@@ -12,10 +12,12 @@ const prefix = css`
 module.exports = (fieldType, selectedType, cb) => {
   const validChartTypes = getValidChartTypes(fieldType)
   return html`
-    <div class="${prefix} card-columns">
-      ${validChartTypes.length
-        ? validChartTypes.map(ChartCard)
-        : 'No chart types available for this field'}
+    <div class="${prefix} card-deck-wrapper">
+      <div class="card-deck">
+        ${validChartTypes.length
+          ? validChartTypes.map(ChartCard)
+          : 'No chart types available for this field'}
+      </div>
     </div>
   `
   function ChartCard (chartType) {
