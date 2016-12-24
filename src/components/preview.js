@@ -35,8 +35,9 @@ function VizWit () {
 }
 
 function tryVizwit (el, config) {
+  const configCopy = Object.assign({}, config) // vizwit mutates config
   try {
-    vizwit.init(el, config)
+    vizwit.init(el, configCopy)
   } catch (err) {
     console.error(err)
   }
