@@ -9,7 +9,7 @@ const Export = require('./components/export')
 const Preview = require('./components/preview')
 
 css('bootstrap')
-css('leaflet')
+css('leaflet/dist/leaflet.css')
 css('vizwit/src/styles/main.css')
 
 module.exports = (state, prev, send) => {
