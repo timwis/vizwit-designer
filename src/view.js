@@ -13,6 +13,7 @@ css('leaflet/dist/leaflet.css')
 css('vizwit/src/styles/main.css')
 
 module.exports = (state, prev, send) => {
+  const areFieldsFetched = !!Object.keys(state.fields).length
   const fieldType = state.field ? state.fields[state.field].type : ''
   const config = constructConfig(state)
 
@@ -20,7 +21,7 @@ module.exports = (state, prev, send) => {
     <div class="container">
       <h1>VizWit Designer</h1>
       ${DomainDataset(submitDomainDatasetCb)}
-      ${state.fields ? Fields(state.fields, selectFieldCb) : ''}
+      ${areFieldsFetched ? Fields(state.fields, selectFieldCb) : ''}
       ${fieldType ? ChartTypes(fieldType, state.chartType, selectChartTypeCb) : ''}
       ${state.chartType ? ChartSettings(state.chartType, chartSettingsCb) : ''}
       ${state.chartType ? Preview(config) : ''}

@@ -13,6 +13,9 @@ const prefix = css`
   :host, :host > div {
     height: 230px;
   }
+  :host > div > .card {
+    padding-top: 0;
+  }
 `
 
 function VizWit () {
