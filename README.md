@@ -1,7 +1,7 @@
 # VizWit Designer
 Design [VizWit](http://vizwit.io) card configurations with a GUI.
 
-![screenshot of form](http://i.imgur.com/NbUOmKV.png)
+![screenshot of form](http://i.imgur.com/eTCXhUw.png)
 
 ## Usage
 Install dependencies via
