@@ -1,9 +1,7 @@
 # VizWit Designer
 Design [VizWit](http://vizwit.io) card configurations with a GUI.
 
-**Work in progress**
-
-![screenshot of form](http://i.imgur.com/Q8sucqa.png)
+![screenshot of form](http://i.imgur.com/NbUOmKV.png)
 
 ## Usage
 Install dependencies via
@@ -14,3 +12,6 @@ Run a development server via
 ```bash
 npm start
 ```
+
+## Configuration
+Add map boundaries to `src/boundaries.json`.
