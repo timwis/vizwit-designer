@@ -18,30 +18,47 @@ const prefix = css`
 `
 
 module.exports = (state, prev, send) => {
+  const nextRowIndex = state.layout.rows.length
+
   const tree = html`
     <div class="${prefix} container">
       <h1>VizWit Layout</h1>
-      ${state.layout.rows.map((columns) => {
+      ${state.layout.rows.map((columns, rowIndex) => {
         return html`
-          <div class="flex-row">
-            ${columns.map((card) => html`
-              <div class="flex-column">
+          <div class="flex-row" data-row-index=${rowIndex}>
+            ${columns.map((card, columnIndex) => html`
+              <div
+                class="flex-column"
+                data-column-index=${columnIndex}>
                 ${JSON.stringify(card)}
               </div>
             `)}
           </div>
         `
       })}
-      <div class="flex-row"></div>
+      <div class="flex-row" data-row-index=${nextRowIndex}></div>
     </div>
   `
 
   const rowEls = Array.from(tree.querySelectorAll('.flex-row'))
   const dragArea = dragula(rowEls)
-  dragArea.on('drop', (el, target, source, sibling) => {
-    // target is the row, sibling is the one it's before & null if last
-    console.log('dropped', {el, target, source, sibling})
-  })
+  dragArea.on('drop', dragDropCallback)
 
   return tree
+
+  function dragDropCallback (el, target, source, sibling) {
+    const from = {
+      row: +source.getAttribute('data-row-index'),
+      index: +el.getAttribute('data-column-index')
+    }
+    const to = {
+      row: +target.getAttribute('data-row-index'),
+      index: +getIndexInParent(el)
+    }
+    send('layout:reorder', { from, to })
+  }
+}
+
+function getIndexInParent (el) {
+  return Array.from(el.parentNode.children).indexOf(el)
 }
