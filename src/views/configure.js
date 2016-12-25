@@ -1,12 +1,12 @@
 const html = require('choo/html')
 const css = require('sheetify')
 
-const DomainDataset = require('./components/domain-dataset')
-const Fields = require('./components/fields')
-const ChartTypes = require('./components/chart-types')
-const ChartSettings = require('./components/chart-settings')
-const Export = require('./components/export')
-const Preview = require('./components/preview')
+const DomainDataset = require('../components/domain-dataset')
+const Fields = require('../components/fields')
+const ChartTypes = require('../components/chart-types')
+const ChartSettings = require('../components/chart-settings')
+const Export = require('../components/export')
+const Preview = require('../components/preview')
 
 css('bootstrap')
 css('leaflet/dist/leaflet.css')

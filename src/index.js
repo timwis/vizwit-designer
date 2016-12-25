@@ -7,9 +7,11 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.model(require('./model'))
+app.model(require('./models/layout'))
 
 app.router([
-  ['/', require('./view')]
+  ['/', require('./views/configure')],
+  ['/layout', require('./views/layout')]
 ])
 
 const tree = app.start()
