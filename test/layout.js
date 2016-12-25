@@ -50,3 +50,30 @@ test('move column within same row', (t) => {
   const result = reorder(state, payload)
   t.deepEqual(result, expected)
 })
+
+test('move column to new row', (t) => {
+  t.plan(1)
+
+  const state = Object.freeze({
+    rows: [
+      [ {a: 'a'}, {b: 'b'}, {c: 'c'} ],
+      [ {d: 'd'}, {e: 'e'} ]
+    ]
+  })
+
+  const expected = {
+    rows: [
+      [ {a: 'a'}, {b: 'b'} ],
+      [ {d: 'd'}, {e: 'e'} ],
+      [ {c: 'c'} ]
+    ]
+  }
+
+  const payload = {
+    from: { row: 0, index: 2 },
+    to: { row: 2, index: 0 }
+  }
+
+  const result = reorder(state, payload)
+  t.deepEqual(result, expected)
+})

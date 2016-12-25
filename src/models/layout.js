@@ -26,7 +26,8 @@ module.exports = {
       fromRowCopy.splice(from.index, 1) // remove from row
       rowsCopy[from.row] = fromRowCopy // replace 'from' row
 
-      const toRowCopy = rowsCopy[to.row].slice()
+      // If target row doesn't exist, create a new array
+      const toRowCopy = rowsCopy[to.row] ? rowsCopy[to.row].slice() : []
       toRowCopy.splice(to.index, 0, item) // add to row
       rowsCopy[to.row] = toRowCopy // replace 'to' row
 
