@@ -16,7 +16,7 @@ module.exports = {
     ]
   },
   reducers: {
-    reorder: (state, data) => {
+    reorder: (state, data) => { // Who wants to take a stab at refactoring this?
       const { from, to } = data
 
       const rowsCopy = state.rows.slice()
@@ -24,7 +24,12 @@ module.exports = {
       const fromRowCopy = rowsCopy[from.row].slice()
       const item = fromRowCopy[from.index]
       fromRowCopy.splice(from.index, 1) // remove from row
-      rowsCopy[from.row] = fromRowCopy // replace 'from' row
+
+      if (fromRowCopy.length) { // if there are still items left in row
+        rowsCopy[from.row] = fromRowCopy // replace 'from' row
+      } else { // otherwise, row is now empty so delete it
+        rowsCopy.splice(from.row, 1)
+      }
 
       // If target row doesn't exist, create a new array
       const toRowCopy = rowsCopy[to.row] ? rowsCopy[to.row].slice() : []

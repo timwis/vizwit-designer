@@ -37,6 +37,9 @@ module.exports = (state, prev, send) => {
         `
       })}
       <div class="flex-row" data-row-index=${nextRowIndex}></div>
+      <pre>
+        ${Export(state.layout.rows)}
+      </pre>
     </div>
   `
 
@@ -56,6 +59,14 @@ module.exports = (state, prev, send) => {
       index: +getIndexInParent(el)
     }
     send('layout:reorder', { from, to })
+  }
+
+  function Export (rows) {
+    return html`
+      <pre>
+${JSON.stringify(rows, null, 2)}
+      </pre>
+    `
   }
 }
 

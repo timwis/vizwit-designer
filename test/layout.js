@@ -77,3 +77,28 @@ test('move column to new row', (t) => {
   const result = reorder(state, payload)
   t.deepEqual(result, expected)
 })
+
+test('delete row if no columns left', (t) => {
+  t.plan(1)
+
+  const state = Object.freeze({
+    rows: [
+      [ {a: 'a'}, {b: 'b'} ],
+      [ {c: 'c'} ]
+    ]
+  })
+
+  const expected = {
+    rows: [
+      [ {a: 'a'}, {b: 'b'}, {c: 'c'} ]
+    ]
+  }
+
+  const payload = {
+    from: { row: 1, index: 0 },
+    to: { row: 0, index: 2 }
+  }
+
+  const result = reorder(state, payload)
+  t.deepEqual(result, expected)
+})
