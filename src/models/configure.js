@@ -2,14 +2,15 @@ const xhr = require('xhr')
 const parallel = require('run-parallel')
 
 module.exports = {
-  namespace: 'card',
+  namespace: 'configure',
   state: {
-    fields: [],
+    fields: {},
     field: '', // which field is selected
+    provider: 'cartodb',
     domain: '',
     dataset: '',
     chartType: '',
-    settings: {}
+    settings: {} // chartType-specific extras
   },
   reducers: {
     setDomainDataset: (state, formData) => formData,
@@ -21,8 +22,8 @@ module.exports = {
   effects: {
     submitDomainDataset: (state, formData, send, done) => {
       parallel([
-        (cb) => send('card:setDomainDataset', formData, cb),
-        (cb) => send('card:getFields', formData, cb)
+        (cb) => send('configure:setDomainDataset', formData, cb),
+        (cb) => send('configure:getFields', formData, cb)
       ], done)
     },
     getFields: (state, formData, send, done) => {
@@ -32,7 +33,7 @@ module.exports = {
 
       xhr(url, { json: true }, (err, resp, body) => {
         if (err) return done(new Error('Failed to fetch fields'))
-        send('card:receiveFields', body.fields, done)
+        send('configure:receiveFields', body.fields, done)
       })
     }
   }

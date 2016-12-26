@@ -22,37 +22,34 @@ const prefix = css`
 
 module.exports = (state, prev, send) => {
   const nextRowIndex = state.layout.rows.length
+  let dragArea
 
-  const tree = html`
-    <div class="${prefix} container">
+  return html`
+    <div class="${prefix} container" onload=${onLoad} onunload=${onUnload}>
       <h1>VizWit Layout</h1>
-      ${state.layout.rows.map((columns, rowIndex) => {
-        return html`
-          <div class="flex-row" data-row-index=${rowIndex}>
-            ${columns.map((card, columnIndex) => html`
-              <div
-                class="flex-column"
-                data-column-index=${columnIndex}>
-                ${JSON.stringify(card)}
-              </div>
-            `)}
-          </div>
-        `
-      })}
+
+      ${state.layout.rows.map(Row)}
+
       <div class="flex-row empty-row" data-row-index=${nextRowIndex}>
         <a href="/configure" class="btn btn-secondary add-button">Add card</a>
       </div>
+
       <pre>
-        ${Export(state.layout.rows)}
+${JSON.stringify(state.layout.rows, null, 2)}
       </pre>
     </div>
   `
 
-  const rowEls = Array.from(tree.querySelectorAll('.flex-row'))
-  const dragArea = dragula(rowEls)
-  dragArea.on('drop', dragDropCallback)
+  function onLoad (el) {
+    const rowEls = Array.from(el.querySelectorAll('.flex-row'))
+    dragArea = dragula(rowEls)
+    console.log('draggable', rowEls, dragArea)
+    dragArea.on('drop', dragDropCallback)
+  }
 
-  return tree
+  function onUnload (el) {
+    dragArea.destroy()
+  }
 
   function dragDropCallback (el, target, source, sibling) {
     const from = {
@@ -65,14 +62,21 @@ module.exports = (state, prev, send) => {
     }
     send('layout:reorder', { from, to })
   }
+}
 
-  function Export (rows) {
-    return html`
-      <pre>
-${JSON.stringify(rows, null, 2)}
-      </pre>
-    `
-  }
+function Row (columns, rowIndex) {
+  return html`
+    <div class="flex-row" data-row-index=${rowIndex}>
+      ${columns.map(Column)}
+    </div>
+  `
+}
+function Column (config, columnIndex) {
+  return html`
+    <div class="flex-column" data-column-index=${columnIndex}>
+      ${JSON.stringify(config)}
+    </div>
+  `
 }
 
 function getIndexInParent (el) {

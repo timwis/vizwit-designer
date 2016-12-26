@@ -3,7 +3,9 @@
 module.exports = {
   namespace: 'layout',
   state: {
-    rows: []
+    rows: [
+      [ {a: 'a'}, {b: 'b'} ]
+    ]
   },
   reducers: {
     reorder: (state, data) => { // Who wants to take a stab at refactoring this?
@@ -25,6 +27,20 @@ module.exports = {
       const toRowCopy = rowsCopy[to.row] ? rowsCopy[to.row].slice() : []
       toRowCopy.splice(to.index, 0, item) // add to row
       rowsCopy[to.row] = toRowCopy // replace 'to' row
+
+      return { rows: rowsCopy }
+    },
+    setCard: (state, data) => {
+      const { config, row, column } = data
+      const rowsCopy = state.rows.slice()
+
+      if (row && column) {
+        const rowCopy = rowsCopy[row].slice()
+        rowCopy[column] = config
+        rowsCopy[row] = rowCopy
+      } else {
+        rowsCopy.push([ config ])
+      }
 
       return { rows: rowsCopy }
     }
