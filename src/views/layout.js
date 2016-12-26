@@ -15,6 +15,9 @@ const prefix = css`
     border: 1px black solid;
     flex: 1;
   }
+  :host .add-button {
+    margin: 0 auto;
+  }
 `
 
 module.exports = (state, prev, send) => {
@@ -36,7 +39,9 @@ module.exports = (state, prev, send) => {
           </div>
         `
       })}
-      <div class="flex-row" data-row-index=${nextRowIndex}></div>
+      <div class="flex-row empty-row" data-row-index=${nextRowIndex}>
+        <button class="btn btn-secondary add-button">Add card</button>
+      </div>
       <pre>
         ${Export(state.layout.rows)}
       </pre>
