@@ -6,10 +6,12 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(require('choo-log')())
 }
 
-app.model(require('./model'))
+app.model(require('./models/card'))
+app.model(require('./models/layout'))
 
 app.router([
-  ['/', require('./view')]
+  ['/', require('./views/layout')],
+  ['/configure', require('./views/configure')]
 ])
 
 const tree = app.start()
