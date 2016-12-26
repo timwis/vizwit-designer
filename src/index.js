@@ -10,8 +10,8 @@ app.model(require('./models/card'))
 app.model(require('./models/layout'))
 
 app.router([
-  ['/', require('./views/configure')],
-  ['/layout', require('./views/layout')]
+  ['/', require('./views/layout')],
+  ['/configure', require('./views/configure')]
 ])
 
 const tree = app.start()

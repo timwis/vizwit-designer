@@ -40,7 +40,7 @@ module.exports = (state, prev, send) => {
         `
       })}
       <div class="flex-row empty-row" data-row-index=${nextRowIndex}>
-        <button class="btn btn-secondary add-button">Add card</button>
+        <a href="/configure" class="btn btn-secondary add-button">Add card</a>
       </div>
       <pre>
         ${Export(state.layout.rows)}
