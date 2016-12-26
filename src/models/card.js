@@ -2,6 +2,7 @@ const xhr = require('xhr')
 const parallel = require('run-parallel')
 
 module.exports = {
+  namespace: 'card',
   state: {
     fields: [],
     field: '', // which field is selected
@@ -20,8 +21,8 @@ module.exports = {
   effects: {
     submitDomainDataset: (state, formData, send, done) => {
       parallel([
-        (cb) => send('setDomainDataset', formData, cb),
-        (cb) => send('getFields', formData, cb)
+        (cb) => send('card:setDomainDataset', formData, cb),
+        (cb) => send('card:getFields', formData, cb)
       ], done)
     },
     getFields: (state, formData, send, done) => {
@@ -31,7 +32,7 @@ module.exports = {
 
       xhr(url, { json: true }, (err, resp, body) => {
         if (err) return done(new Error('Failed to fetch fields'))
-        send('receiveFields', body.fields, done)
+        send('card:receiveFields', body.fields, done)
       })
     }
   }

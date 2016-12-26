@@ -13,32 +13,32 @@ css('leaflet/dist/leaflet.css')
 css('vizwit/src/styles/main.css')
 
 module.exports = (state, prev, send) => {
-  const areFieldsFetched = !!Object.keys(state.fields).length
-  const fieldType = state.field ? state.fields[state.field].type : ''
-  const config = constructConfig(state)
+  const areFieldsFetched = !!Object.keys(state.card.fields).length
+  const fieldType = state.card.field ? state.card.fields[state.card.field].type : ''
+  const config = constructConfig(state.card)
 
   return html`
     <div class="container">
       <h1>VizWit Designer</h1>
       ${DomainDataset(submitDomainDatasetCb)}
-      ${areFieldsFetched ? Fields(state.fields, selectFieldCb) : ''}
-      ${fieldType ? ChartTypes(fieldType, state.chartType, selectChartTypeCb) : ''}
-      ${state.chartType ? ChartSettings(state.chartType, chartSettingsCb) : ''}
-      ${state.chartType ? Preview(config) : ''}
-      ${state.chartType ? Export(config) : ''}
+      ${areFieldsFetched ? Fields(state.card.fields, selectFieldCb) : ''}
+      ${fieldType ? ChartTypes(fieldType, state.card.chartType, selectChartTypeCb) : ''}
+      ${state.card.chartType ? ChartSettings(state.card.chartType, chartSettingsCb) : ''}
+      ${state.card.chartType ? Preview(config) : ''}
+      ${state.card.chartType ? Export(config) : ''}
     </div>
   `
   function submitDomainDatasetCb (formData) {
-    send('submitDomainDataset', formData)
+    send('card:submitDomainDataset', formData)
   }
   function selectFieldCb (field) {
-    send('setField', field)
+    send('card:setField', field)
   }
   function selectChartTypeCb (chartType) {
-    send('setChartType', chartType)
+    send('card:setChartType', chartType)
   }
   function chartSettingsCb (settings) {
-    send('setChartSettings', settings)
+    send('card:setChartSettings', settings)
   }
   function constructConfig (state) {
     const config = {
