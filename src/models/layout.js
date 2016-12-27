@@ -3,9 +3,7 @@
 module.exports = {
   namespace: 'layout',
   state: {
-    rows: [
-      [ {a: 'a'}, {b: 'b'} ]
-    ]
+    rows: []
   },
   reducers: {
     reorder: (state, data) => { // Who wants to take a stab at refactoring this?

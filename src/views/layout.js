@@ -11,9 +11,10 @@ const prefix = css`
     display: flex;
   }
   :host .flex-column {
-    height: 100px;
+    min-height: 100px;
     border: 1px black solid;
     flex: 1;
+    overflow-x: hidden;
   }
   :host .add-button {
     margin: 0 auto;
@@ -41,9 +42,10 @@ ${JSON.stringify(state.layout.rows, null, 2)}
   `
 
   function onLoad (el) {
-    const rowEls = Array.from(el.querySelectorAll('.flex-row'))
+    // workaround for bug https://github.com/shama/bel/issues/61
+    const elFix = document.querySelector(`.${prefix}`)
+    const rowEls = Array.from(elFix.querySelectorAll('.flex-row'))
     dragArea = dragula(rowEls)
-    console.log('draggable', rowEls, dragArea)
     dragArea.on('drop', dragDropCallback)
   }
 
@@ -74,7 +76,9 @@ function Row (columns, rowIndex) {
 function Column (config, columnIndex) {
   return html`
     <div class="flex-column" data-column-index=${columnIndex}>
-      ${JSON.stringify(config)}
+      <pre>
+${JSON.stringify(config, null, 2)}
+      </pre>
     </div>
   `
 }
