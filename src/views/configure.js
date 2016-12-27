@@ -8,6 +8,8 @@ const ChartTypes = require('../components/chart-types')
 const ChartSettings = require('../components/chart-settings')
 const Preview = require('../components/preview')
 
+const previewInstance = Preview()
+
 css('bootstrap')
 css('leaflet/dist/leaflet.css')
 css('vizwit/src/styles/main.css')
@@ -25,7 +27,7 @@ module.exports = (state, prev, send) => {
       ${areFieldsFetched ? Fields(config.fields, selectFieldCb) : ''}
       ${fieldType ? ChartTypes(fieldType, config.chartType, selectChartTypeCb) : ''}
       ${config.chartType ? ChartSettings(config.chartType, chartSettingsCb) : ''}
-      ${config.chartType ? Preview(serialized) : ''}
+      ${config.chartType ? previewInstance(serialized) : ''}
       ${config.chartType ? SaveButton(saveCb) : ''}
     </div>
   `
