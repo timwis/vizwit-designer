@@ -6,7 +6,7 @@ module.exports = {
   state: {
     fields: {},
     field: '', // which field is selected
-    provider: 'cartodb',
+    provider: 'carto',
     domain: '',
     dataset: '',
     chartType: '',
