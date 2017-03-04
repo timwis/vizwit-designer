@@ -1,8 +1,14 @@
 [
   {
     "name": "Police Districts",
-    "url": "https://timwis.carto.com/api/v2/sql?q=select+*+from+public.police_district_boundaries&format=geojson",
+    "url": "https://phl.carto.com/api/v2/sql?q=select+*+from+police_districts&format=geojson",
     "label": "dist_num",
     "id": "dist_numc"
+  },
+  {
+    "name": "Census Tracts 2010",
+    "url": "https://phl.carto.com/api/v2/sql?q=select+*+from+census_tracts_2010&format=geojson",
+    "label": "namelsad10",
+    "id": "name10_padded"
   }
 ]

@@ -11,7 +11,7 @@ module.exports = (cb) => {
           name="domain"
           id="domain"
           class="form-control"
-          value="timwis.carto.com"
+          value="phl.carto.com"
           placeholder="phl.carto.com"/>
       </div>
       <div class="form-group">
@@ -21,7 +21,7 @@ module.exports = (cb) => {
           name="dataset"
           id="dataset"
           class="form-control"
-          value="crimes_2015_to_oct_2016"
+          value=""
           placeholder="crime_incidents"/>
       </div>
       <button type="submit" class="btn btn-primary">
